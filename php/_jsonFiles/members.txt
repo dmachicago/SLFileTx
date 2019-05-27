@@ -1,0 +1,36 @@
+﻿{
+	"members": [{
+		"member": {
+			"data": {
+				"memberid": "MrW",
+				"pw": "Welcome1#",
+				"FavoriteNumber": "5656",
+				"US-State": "Minnosota",
+				"status": "enabled",
+				"expdate": "2020/12/31"
+			}
+		}
+	}, {
+		"member": {
+			"data": {
+				"memberid": "deaN",
+				"pw": "Welcome1#",
+				"FavoriteNumber": "3434",
+				"US-State": "Minnosota",
+				"status": "enabled",
+				"expdate": "2020/12/31"
+			}
+		}
+	}, {
+		"member": {
+			"data": {
+				"memberid": "wMiller",
+				"pw": "JuneBug@01",
+				"FavoriteNumber": "2419",
+				"US-State": "Minnosota",
+				"status": "enabled",
+				"expdate": "2020/12/31"
+			}
+		}
+	}]
+}

@@ -1,0 +1,37 @@
+SEA - 144.202.92.154
+ORD - 207.148.8.61
+SF  - 45.32.129.86
+SV  - 144.202.105.155
+
+nano /etc/apt/sources.list
+deb http://old-releases.ubuntu.com/ubuntu/ yakkety main restricted
+# deb-src http://archive.ubuntu.com/ubuntu/ yakkety main restricted
+apt-get update
+
+apt install expect
+apt install tcl8.6
+
+ssh-keygen -t dsa
+ssh-copy-id -i /root/.ssh/id_dsa.pub 'wmiller@144.202.105.155' -p2419
+
+
+apt-get install unison
+
+unison -testServer /var/www/html/SLupload/uploads ssh://wmiller@144.202.105.155:2419//var/www/html/SLupload/uploads
+
+unison -batch /var/www/html/SLupload/uploads ssh://wmiller@45.32.129.86:2419//var/www/html/SLupload/uploads
+
+unison -batch /var/www/html/SLupload/uploads ssh://wmiller@207.148.8.61:2419//var/www/html/SLupload/uploads
+unison -batch /var/www/html/SLupload/uploads ssh://wmiller@144.202.92.154:2419//var/www/html/SLupload/uploads
+unison -batch /var/www/html/SLupload/uploads ssh://wmiller@144.202.105.155:2419//var/www/html/SLupload/uploads
+
+#*****************
+mkdir /var/www/html/Scripts
+#*****************
+autoexpect
+cp -f script.exp /var/www/html/Scripts/sync.144.202.105.155.exp
+
+cp -f script.exp /var/www/html/Scripts/sync.ALL.exp
+
+expect /var/www/html/Scripts/sync.ALL.exp
+

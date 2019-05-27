@@ -1,0 +1,6 @@
+
+apt-get install geoip-bin
+geoiplookup 23.66.166.151
+
+$ipinfo = getIpInfo ('12.215.42.19');
+echo $ipinfo ;

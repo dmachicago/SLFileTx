@@ -1,0 +1,25 @@
+
+#********* getMemberList.php *********
+cd /var/www/html/SLupload/php
+
+php fileDownLoad.php "wmiller" "Junebgu@01" "123" "BarkersFrontPorch.JPG" "235";
+
+php getGroupMembers.php "wmiller" "Junebug@01" "123" "Partners";
+php getGroups.php "wmiller" "Junebug@01" "123" "NoFunc";
+php getMemberList.php "wmiller" "Junebug@01" "123" "NoFunc";
+php getMemberPendingFiles.php "mr" "Welcome1!" "123" "NoFunc";
+php getMemberPendingFiles.php "wmiller" "Junebug@01" "123" "NoFunc";
+
+php validateUser.php "wmiller" "Junebug@01" "123" "NoFunc";
+
+php upload.php "xporch.jpg" "1000000" "1" "wmiller" "dean,mr" "wmiller" "Junebug@01" "100200300" "5000000" "8" "1" "1000000" "\upload" "a123d123f123c123" "1000001";
+
+php vaporize.php  'wmiller'  'Junebug@01' '1520796936343' 'wmiller' 'Ballet01.jpg|Cindy.jpg|melanie.jpg|Roscoe.JPG' ;
+
+#***** TEST Embedded FUNCTION
+php -r 'include "MyClass.php";
+        MyClass::foo();'
+
+php -r 'include "dbFuncs.php"; dbFuncs::insertFileUpload("xFileName", 5, 1, 1000, "/php", "abx1034df");'
+
+insertFileUpload($FileName, $segmentCount, $segmentNbr, $segmentSize, $directory, $filehash);

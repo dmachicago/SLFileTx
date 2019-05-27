@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<!--
+  ~ Copyright (@) 2017. D. Miller & Associates, Limited, Illinois, USA.
+  ~ ALL rights reserved.
+  -->
+
+<html lang="en">
+<head>
+	<meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+	<title>Jquery PrMenu Plugin Demo</title>
+
+    <meta charset="utf-8"/>
+
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/listbox.css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <!--<link rel="stylesheet" href="/resources/demos/style.css">-->
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+    <!--<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>-->
+    <!--<script src="https://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>-->
+    <script src="https://code.jquery.com/jquery-migrate-1.2.0.js"></script>
+
+    <!--<meta name="viewport" content="width=device-width, initial-scale=1">-->
+    <!--<link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">-->
+    <!--<script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>-->
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="js/crypto.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/listbox.js"></script>
+    <script src="js/phpInterface.js"></script>
+    <script src="js/login.js"></script>
+
+	<script src="js/jquery.prmenu.min.js"></script>
+
+	<link type="text/css" rel="stylesheet" href="css/prmenu.css" />
+	<script>
+		$(document).ready(function(){
+			  $('#top-menu').prmenu({
+				  "fontsize": "14",
+					"height": "50",
+					"case": "capitalize",
+					"linkbgcolor": "#286090",
+					"linktextcolor": "#ffffff",
+					"linktextweight": "400",
+					"linktextfont": "sans-serif",
+					"hoverdark": false
+				});
+
+
+		});
+
+	</script>
+	<style>
+
+		body {
+			margin: 0;
+			padding: 0;
+		}
+
+		.content {
+			width: 90%;
+			max-width: 800px;
+			margin: 50px auto;
+		}
+
+		 pre {
+			white-space: pre-wrap;       /* CSS 3 */
+			white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+			white-space: -pre-wrap;      /* Opera 4-6 */
+			white-space: -o-pre-wrap;    /* Opera 7 */
+			word-wrap: break-word;       /* Internet Explorer 5.5+ */
+		}
+
+	</style>
+
+</head>
+<body>
+
+<div id="container">
+
+	<ul id="top-menu">
+        <li><a href="#">Home</a></li>
+         <li><a href="#">Services</a>
+            <ul>
+                <li><a href="#">Personal</a></li>
+                <li><a href="#">Business</a></li>
+                <li><a href="#">Professional Services</a>
+                    <ul>
+                        <li><a href="#">Doctor</a></li>
+                        <li><a href="#">Lawyer</a>
+                        	<ul>
+		                        <li><a href="#">Tax</a></li>
+		                        <li><a href="#">Real Estate</a></li>
+		                        <li><a href="#">Criminal</a></li>
+                    		</ul>
+                        </li>
+                        <li><a href="#">Accountant</a>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+        <li><a href="#">Shop</a></li>
+        <li><a href="#">Support for Customers</a></li>
+        <li><a href="#">FAQ</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a>
+            <ul>
+                <li><a href="#">Personal</a></li>
+                <li><a href="#">Business</a></li>
+                <li><a href="#">Professional</a>
+                    <ul>
+                        <li><a href="#">Family Doctor Clinic</a></li>
+                        <li><a href="#">Lawyer</a>
+                        	<ul>
+		                        <li><a href="#">Tax</a></li>
+		                        <li><a href="#">Real Estate Lawyer</a></li>
+		                        <li><a href="#">Criminal</a></li>
+                    		</ul>
+                        </li>
+                        <li><a href="#">Enterprise Accountant</a>
+                    </ul>
+                </li>
+            </ul>
+        </li>
+    </ul>
+
+
+<div class="content">
+
+	<h1 id="jquery-prmenu">jQuery PrMenu</h1>
+<p>Very lightweight, responsive menu plugin for jQuery. Provides a menu with links evenly distributed across width of menu container.</p>
+<h1 id="features">Features</h1>
+<ul>
+<li>Links are evenly distributed within menu container</li>
+<li>Maximum four menus levels (three nested)</li>
+<li>Auto text wrap of long link text (maximum two lines)</li>
+<li>Auto link background colors for all levels based on initial background color</li>
+<li>All settings can be changed by passing in your own options</li>
+</ul>
+<h2 id="how-to-use">How to use</h2>
+<p>Set up your menu as standard ul with li. Nest sub-menus as you need them. As in the menu below, you can have a maximum of four menu levels including the top level:</p>
+<pre class="sourceCode html"><code class="sourceCode html">
+        <span class="kw">&lt;ul</span><span class="ot"> id=</span><span class="st">&quot;top-menu&quot;</span><span class="kw">&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Home<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+         <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Services<span class="kw">&lt;/a&gt;</span>
+            <span class="kw">&lt;ul&gt;</span>
+                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Personal<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Business<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Professional Services<span class="kw">&lt;/a&gt;</span>
+                    <span class="kw">&lt;ul&gt;</span>
+                        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Doctor<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Lawyer<span class="kw">&lt;/a&gt;</span>
+                            <span class="kw">&lt;ul&gt;</span>
+                                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Tax<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Real Estate<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Criminal<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                            <span class="kw">&lt;/ul&gt;</span>
+                        <span class="kw">&lt;/li&gt;</span>
+                        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Accountant<span class="kw">&lt;/a&gt;</span>
+                    <span class="kw">&lt;/ul&gt;</span>
+                <span class="kw">&lt;/li&gt;</span>
+            <span class="kw">&lt;/ul&gt;</span>
+        <span class="kw">&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Shop<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Support for Customers<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>FAQ<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>About<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Contact<span class="kw">&lt;/a&gt;</span>
+            <span class="kw">&lt;ul&gt;</span>
+                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Personal<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Business<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Professional<span class="kw">&lt;/a&gt;</span>
+                    <span class="kw">&lt;ul&gt;</span>
+                        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Family Doctor Clinic<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Lawyer<span class="kw">&lt;/a&gt;</span>
+                            <span class="kw">&lt;ul&gt;</span>
+                                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Tax<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Real Estate Lawyer<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                                <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Criminal<span class="kw">&lt;/a&gt;&lt;/li&gt;</span>
+                            <span class="kw">&lt;/ul&gt;</span>
+                        <span class="kw">&lt;/li&gt;</span>
+                        <span class="kw">&lt;li&gt;&lt;a</span><span class="ot"> href=</span><span class="st">&quot;#&quot;</span><span class="kw">&gt;</span>Enterprise Accountant<span class="kw">&lt;/a&gt;</span>
+                    <span class="kw">&lt;/ul&gt;</span>
+                <span class="kw">&lt;/li&gt;</span>
+            <span class="kw">&lt;/ul&gt;</span>
+        <span class="kw">&lt;/li&gt;</span>
+    <span class="kw">&lt;/ul&gt;</span></code></pre>
+<p>Activate the menu when the document is ready:</p>
+<pre class="js"><code>
+        $(document).ready(function(){
+            $(&#39;#top-menu&#39;).prmenu();
+        });
+</code></pre>
+<p>You can optionally override the default plugin settings by passing in your own options:</p>
+<pre class="js"><code>
+            $(&#39;#top-menu&#39;).prmenu({
+                  &quot;fontsize&quot;: &quot;14&quot;,
+                    &quot;height&quot;: &quot;50&quot;,
+                    &quot;case&quot;: &quot;capitalize&quot;,
+                    &quot;linkbgcolor&quot;: &quot;#286090&quot;,
+                    &quot;linktextcolor&quot;: &quot;#ffffff&quot;,
+                    &quot;linktextweight&quot;: &quot;400&quot;,
+                    &quot;linktextfont&quot;: &quot;sans-serif&quot;,
+                    &quot;hoverdark&quot;: false
+                });
+</code></pre>
+<h2 id="options">Options</h2>
+<ul>
+<li><strong>fontsize</strong> : int : default 14 : Size of the menu link text in px</li>
+<li><strong>height</strong> : int : default 50 : height of link elements</li>
+<li><strong>case</strong> : string : default uppercase : valid css text transform declaration</li>
+<li><strong>lingbgcolor</strong> : string : default #000000 : valid css background color in hex format</li>
+<li><strong>linktextweight</strong> : int : default 400 : valid css font weight</li>
+<li><strong>linktextfont</strong> : string : default sans-serif : valid css font to be applied to link text</li>
+<li><strong>hoverdark</strong> : bool : default false : should hover state be darker than link background color?</li>
+</ul>
+<h2 id="demo">Demo</h2>
+<p>PrMenu <a href="http://prmenu.pagerange.com">live demo</a></p>
+<h2 id="history">History</h2>
+<p>Please see <a href="https://github.com/pagerange/prmenu/releases">the releases</a> changelog.</p>
+<h2 id="license">License</h2>
+<p>Released under <a href="http://www.opensource.org/licenses/mit-license.php">MIT Licence</a></p>
+
+
+</div><!-- /content -->
+
+
+
+
+
+</div><!-- /container -->
+
+<div id="footer">
+
+</div><!-- /footer -->
+
+</body>
+</html>

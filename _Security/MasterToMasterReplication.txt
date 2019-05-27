@@ -1,0 +1,60 @@
+Server#1 ORD -  207.148.8.61 
+Server#2 SV  -  144.202.105.155 
+
+#SET UP Server#1 ReplicationMgr
+grant replication slave on \*.\* to ReplicationMgr@'[IPServer#2]' identified by 'CopperGold@01';
+
+grant replication slave on *.* to ReplicationMgr@'144.202.105.155' identified by 'CopperGold@01';
+flush privileges;
+exit
+
+#Do the same for Server#2
+grant replication slave on *.* to ReplicationMgr@'207.148.8.61' identified by 'CopperGold@01';
+flush privileges;
+exit
+
+#Back on Server#1, edit /etc/mysql/my.cnf and insert/update or uncomment following entries:
+bind-address = 0.0.0.0
+server-id = 1
+log-bin = /var/log/mysql/bin.log
+log-slave-updates
+log-bin-index = /var/log/mysql/log-bin.index
+log-error = /var/log/mysql/error.log
+relay-log = /var/log/mysql/relay.log
+relay-log-info-file = /var/log/mysql/relay-log.info
+relay-log-index = /var/log/mysql/relay-log.index
+auto_increment_increment = 10
+auto_increment_offset = 1
+master-host = 144.202.105.155 
+master-user = ReplicationMgr
+master-password = CopperGold@01
+replicate-do-db = k3
+
+
+#Repeat the steps on the Server#2
+bind-address = 0.0.0.0
+server-id = 2
+log-bin = /var/log/mysql/bin.log
+log-slave-updates
+log-bin-index = /var/log/mysql/log-bin.index
+log-error = /var/log/mysql/error.log
+relay-log = /var/log/mysql/relay.log
+relay-log-info-file = /var/log/mysql/relay-log.info
+relay-log-index = /var/log/mysql/relay-log.index
+auto_increment_increment = 10
+auto_increment_offset = 2
+master-host =  207.148.8.61
+master-user = ReplicationMgr
+master-password = CopperGold@01
+replicate-do-db = k3
+
+
+#For the purpose of testing our replication setup, we can create the database 
+#specified in the configuration section above, as well as a test table on one 
+#of the nodes and watch the log files in /var/log/mysql directory. Note that 
+#all database changes should be replicated to our other server immediately.
+
+create database TestDB;
+use TestDB;
+create table foo (id int not null, username varchar(30) not null);
+insert into foo values (1, 'bar');

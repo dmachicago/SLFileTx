@@ -1,0 +1,2 @@
+
+alter table Email add constraint Email_DefaultRowGuid default newid() for RowGuid

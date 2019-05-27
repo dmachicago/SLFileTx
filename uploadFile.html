@@ -1,0 +1,43 @@
+<!doctype html>
+<!--
+  ~ Copyright (@) 2017. D. Miller & Associates, Limited, Illinois, USA.
+  ~ ALL rights reserved.
+  -->
+
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="js/uploadFiles.js"></script>
+    <meta charset="utf-8">
+    <title>JS File Upload with Progress</title>
+    <style>
+        .container {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .progress_outer {
+            border: 1px solid #000;
+        }
+
+        .progress {
+            width: 20%;
+            background: #DEDEDE;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class='container'>
+        <p>
+            Select File:
+            <input type='file' id='_file'>
+            <!--<input type='button' id='_submit' value='Upload!'">-->
+            <input type='button' id='_submit' value='Upload!' onclick="uploadSelectedFiles();">
+        </p>
+        <div class='progress_outer'>
+            <div id='_progress' class='progress'></div>
+        </div>
+    </div>
+</body>
+</html>

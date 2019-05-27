@@ -1,0 +1,106 @@
+
+//Find current INI file
+
+disable_functions
+safe_mode
+
+php --ini
+sudo service php7.0-fpm restart 
+sudo service apache2 restart
+
+   $userid = $argv[1];
+        $pw = $argv[2];
+        $oldpw = $argv[3];
+        $newpw = $argv[4];
+        $sid = $argv[5];
+
+php chgPw.php 'ronin' 'Welcome1!' 'Copper@01' 'Copper@01' 'afdefabc' ;
+
+php testPhp.php 'wmiller' 'Junebug@01' 'afgd' 
+php validateUser.php 'wmiller' 'Junebug@01' 'Junebug@01' 'afgd' '1' ;
+php validateUser.php 'dean' 'Welcome1!' 'Junebug@01' 'afgd' '1' ;
+
+
+php chgPw.php 'ronin' 'Welcome1!' 'Welcome1!' 'welcome3!' 'afgd'
+
+php testTempPwCnt.php 
+
+$userid = $_POST['userid'];
+        $pwhash = $_POST['pwhash'];
+        $sid = $_POST['sessionid'];
+        $Members = $_POST['Members'];
+        $Groups = $_POST['Groups'];
+
+
+         A1Group        |
+| A1_Group       |
+| A201_Group     |
+| A@01           |
+| CapGroup       |
+| China          |
+| Company   
+
+
+php getGroupsMarkMembers.php 'wmiller' 'Junebug@01' 'AA001' 'Tech' ;
+
+php insertGroup.php 'wmiller' 'Junebug@01' 'AA001' '@TestGroup' ;
+php insertGroupMember.php 'wmiller' 'Junebug@01' 'AA001' 'dean' '@TestGroup' ;
+
+php insertGroup.php 'wmiller' 'Junebug@01' 'AA001' 'XXCarl' ;
+php insertMember.php 'wmiller' 'Junebug@01' 'AA001' 'XXCarl' 'XXCarl' ;
+php insertMember.php 'wmiller' 'Junebug@01' 'AA001' 'MR888' 'XXCarl' ;
+
+
+php insertMember.php 'wmiller' 'Junebug@01' 'AA001' 'NewMember04' 'NewGroup04|NewGroup00|' ;
+php insertMember.php 'wmiller' 'Junebug@01' 'AA001' 'NewMember01' 'NewGroup02|NewGroup03|NewGroup04|NewGroup05|' ;
+php insertMember.php 'wmiller' 'Junebug@01' 'AA001' 'NewMember02' 'NewGroup02|NewGroup03|NewGroup04|NewGroup05|' ;
+php insertMember.php 'wmiller' 'Junebug@01' 'AA001' 'NewMember03' 'NewGroup02|NewGroup03|NewGroup04|NewGroup05|' ;
+
+
+php insertGroup.php 'wmiller' 'Junebug@01' 'AA001' 'NewGroup00' ;
+php insertGroup.php 'wmiller' 'Junebug@01' 'AA001' 'NewGroup01' ;
+php insertGroup.php 'wmiller' 'Junebug@01' 'AA001' 'NewGroup02' ;
+php insertGroup.php 'wmiller' 'Junebug@01' 'AA001' 'NewGroup03' ;
+php insertGroup.php 'wmiller' 'Junebug@01' 'AA001' 'NewGroup04' ;
+php insertGroup.php 'wmiller' 'Junebug@01' 'AA001' 'NewGroup05' ;
+
+php deleteGroup.php 'wmiller' 'Junebug@01' 'AA001' 'NewGroup00' ;
+
+php getAllGroupMembers.php 'wmiller' 'Junebug@01' 'afgd' 'dean' 
+
+php getMemberGroups.php 'wmiller' 'Junebug@01' 'afgd' 'dean' 
+php getMemberList.php 'wmiller' 'Junebug@01' 'afgd' 'xyz'
+
+php getGroups.php 'wmiller' 'Junebug@01' 'afgd' 
+php getGroupMembers.php 'wmiller' 'Junebug@01' 'afgd' 'tech'
+
+php getMemberPendingFiles.php 'wmiller' 'Junebug@01' 'Junebug@01' 'afgd' 
+php getMemberPendingFiles.php 'dean' 'Welcome1!' 'Welcome1!' 'afgd' 
+
+php checkCreds.php  'wmiller' 'Junebug@01' 'afgd' 
+
+php upload.php 'TEST5.txt' '1000000' '1' 'wmiller' 'dean' 'wmiller' 'Junebug@01' 'abcdx01' 'dean' '1500000' '2' '1' '1000000' '/var/www/html/SLupload/uploads' 'xxx' '1000000'
+
+
+ $UserID = $argv[1];
+        $pwhash = $argv[2];
+        $sid = $argv[3];
+        $FileName = $argv[4];
+        $TotalChards = $argv[5];
+        $Action = $argv[6];
+
+php insertFileUpload 'LadyLegs' '2' '2' '1024' '/www/var/html/SLupload/uploads' 'adf01'
+
+## Encrypt File and Move to encryption direction
+php merge.php 'wmiller' 'Junebug@01' 'adf01c' 'DaleAvalanche.jpeg' 1 'E'
+php vaporize.php 'wmiller' 'Junebug@01' 'adf01c' 'MicOff.png'
+
+## Decrypt File
+php merge.php 'wmiller' 'Junebug@01' 'adf01c' 'DadShelby.tif' 1 'D'
+
+
+php EncryptSSL.php 'wmiller' 'Junebug@01' 'abcfabc' '../uploads/BarkersFrontPorch.JPG' '../uploads/Encrypted/BarkersFrontPorch.JPG.ENC' '1234567890abc' 'e'
+php EncryptFile.php 'wmiller' 'Junebug@01' 'abcfabc' 'BarkersFrontPorch.JPG' '../uploads/Encrypted/BarkersFrontPorch.JPG.ENC' '1234567890abc' 'e'
+
+php vaporize.php 'dean' 'Welcome1!' 'abcfabc' 'dean' 'InstrumentLanding.jpg'
+

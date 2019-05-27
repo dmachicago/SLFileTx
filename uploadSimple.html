@@ -1,0 +1,42 @@
+<!doctype html>
+<!--
+  ~ Copyright (@) 2017. D. Miller & Associates, Limited, Illinois, USA.
+  ~ ALL rights reserved.
+  -->
+
+<html>
+<head>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="js/uploadSimple.js"></script>
+    <meta charset="utf-8">
+    <title>File Uploader</title>
+    <style>
+        .container {
+            width: 500px;
+            margin: 0 auto;
+        }
+
+        .progress_outer {
+            border: 1px solid #000;
+        }
+
+        .progress {
+            width: 20%;
+            background: #DEDEDE;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+    <form action="php/uploadSimple.php" method="post" enctype="multipart/form-data">
+        Select Files:
+        <br/>
+
+        <input type="file" name="fileToUpload" id="fileToUpload">
+        <input type="submit" value="Upload Image" name="submit">
+        <br/>
+        <input name="filesToUpload[]" id="filesToUpload" type="file" multiple=""/>
+        <button onclick="uploadSimple()" value='UploadFiles!'></button>
+    </form>
+</body>
+</html>

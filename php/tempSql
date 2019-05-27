@@ -1,0 +1,129 @@
+--
+-- ER/Studio 8.0 SQL Code Generation
+-- Company :      DMA, Limited
+-- Project :      K3_MySql.DM1
+-- Author :       wdalemiller@gmail.com
+--
+-- Date Created : Saturday, March 11, 2017 17:19:44
+-- Target DBMS : MySQL 5.x
+--
+
+DROP TABLE ActiveSession;
+DROP TABLE FileKeys;
+DROP TABLE MemberFiles;
+DROP TABLE SessionKey;
+DROP TABLE UploadedFiles;
+--
+-- TABLE: ActiveSession
+--
+
+CREATE TABLE ActiveSession(
+    SessionID              BINARY(16)               NOT NULL,
+    FromEmail              NATIONAL VARCHAR(80)     NOT NULL,
+    LastAcquisitionDate    DATETIME                 DEFAULT NOW() NOT NULL,
+    CreateDate             DATETIME                 DEFAULT NOW() NOT NULL,
+    IV                     NATIONAL VARCHAR(50),
+    SecretKey              NATIONAL VARCHAR(100),
+    PRIMARY KEY (FromEmail, SessionID)
+)ENGINE=INNODB
+;
+
+
+
+--
+-- TABLE: FileKeys
+--
+
+CREATE TABLE FileKeys(
+    IV           BINARY(50)              NOT NULL,
+    SecretKey    BINARY(100)             NOT NULL,
+    FileID       INT                     NOT NULL,
+    FromEmail    NATIONAL VARCHAR(80)    NOT NULL,
+    PRIMARY KEY (FileID, FromEmail)
+)ENGINE=INNODB
+;
+
+
+
+--
+-- TABLE: MemberFiles
+--
+
+CREATE TABLE MemberFiles(
+    FileID       INT                     NOT NULL,
+    FromEmail    NATIONAL VARCHAR(80)    NOT NULL,
+    PRIMARY KEY (FileID, FromEmail)
+)ENGINE=INNODB
+;
+
+
+
+--
+-- TABLE: SessionKey
+--
+
+CREATE TABLE SessionKey(
+    SessionID     BINARY(16)               DEFAULT newid() NOT NULL,
+    CreateDate    DATETIME                 DEFAULT getdate() NOT NULL,
+    SessionNBR    INT                      AUTO_INCREMENT,
+    EmailAddr     NATIONAL VARCHAR(80),
+    GuidID        BINARY(16),
+    IV            NATIONAL VARCHAR(50),
+    SecretKey     NATIONAL VARCHAR(100),
+    PRIMARY KEY (SessionID)
+)ENGINE=INNODB;
+
+
+
+--
+-- TABLE: UploadedFiles
+--
+
+CREATE TABLE UploadedFiles(
+    FileName        NATIONAL VARCHAR(254)    NOT NULL,
+    segmentCount    INTEGER                  NOT NULL,
+    segmentNbr      INT                      NOT NULL,
+    segmentSize     INT,
+    directory       NATIONAL VARCHAR(254),
+    FileID          INT                      AUTO_INCREMENT,
+    filehash        BINARY(75),
+    PRIMARY KEY (FileID)
+)ENGINE=INNODB;
+
+
+
+--
+-- TABLE: ActiveSession
+--
+
+ALTER TABLE ActiveSession ADD CONSTRAINT RefMember43
+    FOREIGN KEY (FromEmail)
+    REFERENCES Member(FromEmail);
+
+ALTER TABLE ActiveSession ADD CONSTRAINT RefSessionKey45
+    FOREIGN KEY (SessionID)
+    REFERENCES SessionKey(SessionID);
+
+
+--
+-- TABLE: FileKeys
+--
+
+ALTER TABLE FileKeys ADD CONSTRAINT RefMemberFiles42
+    FOREIGN KEY (FileID, FromEmail)
+    REFERENCES MemberFiles(FileID, FromEmail);
+
+
+--
+-- TABLE: MemberFiles
+--
+
+ALTER TABLE MemberFiles ADD CONSTRAINT RefUploadedFiles39
+    FOREIGN KEY (FileID)
+    REFERENCES UploadedFiles(FileID);
+
+ALTER TABLE MemberFiles ADD CONSTRAINT RefMember40
+    FOREIGN KEY (FromEmail)
+    REFERENCES Member(FromEmail);
+
+

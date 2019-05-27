@@ -1,0 +1,581 @@
+﻿<!--
+  ~ Copyright (@) 2017. D. Miller & Associates, Limited, Illinois, USA.
+  ~ ALL rights reserved.
+  -->
+
+<!-- https://45.32.129.86/SLupload -->
+<!DOCTYPE html>
+<html class="body">
+<head>
+    <title>FILE TX</title>
+    <!--<meta charset="utf-8"/>-->
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0"/>
+    <link rel="stylesheet" href="css/main.css">
+    <link rel="stylesheet" href="css/listbox.css">
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>    
+    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+    <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+    <script src="js/FileSaver.js"></script>
+    <script src="https://cdn.rawgit.com/creatorrr/web-streams-polyfill/master/dist/polyfill.min.js"></script>
+
+    <script src="js/url.js"></script>
+    <script src="js/filemgt.js"></script>
+    <script src="js/vaporize.js"></script>
+    <script src="crypto/components/core-min.js"></script>
+    <script src="crypto/rollups/sha1.js"></script>
+    <script src="js/global.js"></script>
+    <script src="js/main.js"></script>
+    <script src="js/listbox.js"></script>
+    <script src="js/phpInterface.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/member.js"></script>
+    <script src="js/groups.js"></script>
+    <script src="js/testPhp.js"></script>
+    <script src="js/hash.js"></script>
+    <script src="js/checkbox.js"></script>
+    <script src="js/ui.js"></script>
+</head>
+<body style="background-color: lightgray">
+    <div>
+        <h1 class="ui-bar ui-bar-a ui-corner-all"
+            style="background-color: darkblue; color: yellow; margin-top: 0px; align-content: center">SafeLock File Transfer
+        <img id="imgSafe" src="image/locked.jfif"
+            style="float: left; height: 35px; width: 35px; margin-right: 10px;"/>
+        </h1>
+        <label id="lblStatus" style="background-color: midnightblue; color: yellow; width: 100%">
+            Status: NOT Logged
+        in</label>
+    </div>
+    <br/>
+
+    <div class="ui-grid-b ui-responsive" style="background-color: darkgrey;">
+        <div class="ui-block-a">
+            <a href="#popupLogin" data-rel="popup" data-position-to="window"
+                style="width: 125px; background-color: darkgray; color: black; border: outset"
+                class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-check ui-btn-icon-right ui-btn-a"
+                data-transition="flip" data-theme="a">LogIn</a>
+        </div>
+        <div class="ui-block-b">
+            <div class="ui-grid-b ui-responsive" style="background-color: darkgray;">
+                <div class="ui-block-a">
+                    <button onclick="hideDownload()"
+                        style="width: 125px; background-color: darkgray; color: black; border: outset">
+                        Upload
+                    </button>
+                </div>
+                <div class="ui-block-b">
+                    <button onclick="hideSelect('001');"
+                        style="width: 125px; background-color: darkgray; color: black; border: outset">
+                        Download
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="ui-block-c">
+            <div data-role="collapsible" data-collapsed="true" style="width: 250px">
+                <h5 style="border: outset">Options</h5>
+                <ul data-role="listview">
+                    <li><a href="#popChangePW" data-rel="popup" data-position-to="window"
+                        class="ui-btn ui-corner-all ui-shadow "
+                        data-transition="flip" data-theme="a" data-inline="true" data-mini="true">Change PW</a></li>
+                    <li><a href="#" data-rel="popup" data-position-to="window" onclick="getMemberPendingFiles('002');"
+                        class="ui-btn ui-corner-all ui-shadow "
+                        data-transition="flip" data-theme="a" data-inline="true" data-mini="true">Refresh Files</a></li>
+                    <li>
+                        <a href="#" data-rel="popup" data-position-to="window"
+                            onclick="systemRestart();"
+                            class="ui-btn ui-corner-all ui-shadow ui-btn-inline ui-icon-alert ui-btn-icon-right ui-btn-a"
+                            data-transition="flip" data-theme="a" data-inline="true" data-mini="true">Restart</a>
+                    </li>
+                    <li id="btnUserMgt" onclick="getGroupsAdmin();">
+                        <a href="#popUserMgt" data-rel="popup" data-position-to="window"
+                            class="ui-btn ui-corner-all ui-shadow "
+                            data-transition="flow" data-theme="a" data-inline="true" data-mini="true">User MGT</a>
+                    </li>
+                    <li id="btnGroupMgt" onclick="getGroupsMgt(); PopulateDivAdminGroupMembers();">
+                        <a href="#popGroupMgt" data-rel="popup" data-position-to="window"
+                            class="ui-btn ui-corner-all ui-shadow "
+                            data-transition="slidefade" data-theme="a" data-inline="true" data-mini="true">Group MGT</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!--    <form class="center-button" style="background-color: darkgrey; width: 100%">
+<fieldset data-role="controlgroup" data-type="vertical">
+    <input name="radio-choice-v-2" id="radio-choice-v-2a" value="on" checked="checked" type="radio"
+        onclick="hideDownload()">
+    <label for="radio-choice-v-2a">Show Send</label>
+    <input name="radio-choice-v-2" id="radio-choice-v-2b" value="off" type="radio"
+        onclick="hideSelect(); getMemberPendingFiles();">
+    <label for="radio-choice-v-2b">Show Download</label>
+</fieldset>
+</form>-->
+
+    <div data-role="popup" id="popupLogin" data-theme="a" class="ui-corner-all">
+        <form>
+            <div style="padding: 10px 20px; width: 80%">
+                <script>
+                    recallLogin();
+                </script>
+                <h4>Please sign in</h4>
+                <label for="idUserid" class="ui-hidden-accessible">Username:</label>
+                <input type="text" name="user" id="idUserid" value="" placeholder="user name" data-theme="a"
+                    onchange="setHashes();">
+                <label for="idPassword" class="ui-hidden-accessible">Password:</label>
+                <input type="password" name="pass" id="idPassword" value="" placeholder="password" data-theme="a"
+                    onchange="setHashes();">
+
+                <button class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right ui-icon-check" style="width: 80%"
+                    onclick="loginMember();">
+                    Login
+                </button>
+                <div data-role="collapsible" data-mini="true">
+                    <h4>Options</h4>
+                    <ul data-role="listview">
+                        <li>
+                            <label>
+                                <input name="ckDoNotRemember" type="checkbox" onclick="forgetMe();">Do not remember me on
+                            this machine
+                            </label>
+                        </li>
+                        <li>
+                            <label>
+                                <input name="radioChoiceX" id="radioChoiceXa" data-icon="delete" data-inline="true"
+                                    type="radio" onclick="rememberMe();">Remember Me
+                            </label>
+                        </li>
+                        <li>
+                            <label for="radioChoiceXb">Forget Me</label>
+                            <input name="radioChoiceX" id="radioChoiceXb" class="custom" data-icon="delete"
+                                data-inline="true" type="radio" onclick="forgetMe(); "></li>
+                    </ul>
+                </div>
+                <!--<button class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right ui-icon-check" onclick="testPhp();">
+    Test PHP
+</button>-->
+            </div>
+        </form>
+    </div>
+    <div data-role="popup" id="popChangePW" data-theme="a" class="ui-corner-all">
+        <form>
+            <div style="padding: 10px 20px; width: 80%">
+                <script>
+                    recallLogin();
+                </script>
+                <h4>Password Management</h4>
+                <label for="pwUserid" class="ui-hidden-accessible">Username:</label>
+                <input type="text" name="pwUserid" id="pwUserid" value="" placeholder="user name" data-theme="a">
+
+                <label for="pwPassword" class="ui-hidden-accessible">Current PW:</label>
+                <input type="text" name="pwPassword" id="pwPassword" value="" placeholder="Current Password" data-theme="a">
+
+                <label for="pwNew" class="ui-hidden-accessible">New PW:</label>
+                <input type="text" name="pwNew" id="pwNew" value="" placeholder="New Password" data-theme="a">
+
+                <label for="pwNew2" class="ui-hidden-accessible">Retype PW:</label>
+                <input type="text" name="pwNew2" id="pwNew2" value="" placeholder="Retype New Password" data-theme="a">
+
+                <button class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right ui-icon-check"
+                    onclick="chgPw();">
+                    Change Password
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <div data-role="popup" id="popUserMgt" data-theme="a" class="ui-corner-all">
+        <form>
+            <div style="padding: 10px 20px; width: 80%">
+                <h4 data-inline="true">USER Management</h4>
+                <!--<a href="#" onclick="resetUserGroups();"  data-inline="true" data-role="button" data-icon="refresh" data-iconpos="notext">Refresh</a>-->
+                <label for="lbAdminUser" class="select">Select USER:</label>
+                <select onchange="getSelMemVal(this);" name="lbAdminUser" id="lbAdminUser">
+                    <option value="** None">** None</option>
+                    <option id="User01" value="User01">Abraham</option>
+                    <option value="User02">Bruce</option>
+                    <option value="User03">MKI</option>
+                </select>
+
+                <button id="btnResetPw" data-icon="action" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-inline"
+                    data-inline="true">
+                    Reset PW
+                </button>
+                <button style="background-color: darkred; color: yellow" id="btnDeleteUser" data-icon="delete"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-b  ui-btn-inline" data-inline="true"
+                    onclick="deleteMember();">
+                    Delete User
+                </button>
+
+                <label for="txtUserName" class="ui-hidden-accessible">Username:</label>
+                <input type="text" name="txtUserName" id="txtUserName" value="" placeholder="User ID" data-theme="a">
+
+                <button id="btnAddUser" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right ui-icon-check"
+                    onclick="addMemberToGroup();">
+                    Add New User
+                </button>
+
+                <!--<label for="lbUserGroups" class="select">Assign Groups:</label>
+        <select name="lbUserGroups" id="lbUserGroups" multiple="multiple">
+            <option value="** None">** None</option>
+            <option value="Company">Company</option>
+        </select>-->
+
+                <div id="divGroupMembers" class="multiselect">
+                    <label>
+                        <input type="checkbox" name="option[]" value="1" />Group 01</label>
+                    <label>
+                        <input type="checkbox" name="option[]" value="2" />Group 02</label>
+                    <label>
+                        <input type="checkbox" name="option[]" value="3" />Group 03</label>
+                </div>
+
+                <button class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right ui-icon-check"
+                    onclick="addMemberToGroup();">
+                    Update Groups
+                </button>
+                <a href="#" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            </div>
+        </form>
+    </div>
+
+    <div data-role="popup" id="popGroupMgt" data-theme="a" class="ui-corner-all" data-dismissible="false" data-rel="back"
+        data-backdrop="static" data-keyboard="false">
+        <form>
+            <div style="padding: 10px 20px; width: 80%">
+                <h4>GROUP Management</h4>
+                <label for="lbAdminGroup" class="select">Select GROUP:</label>
+                <select id="lbAdminGroup" name="lbAdminGroup">
+                    <option value="** None">*NONE Selected</option>
+                    <option value="Company">Company</option>
+                </select>
+
+                <label for="txtGroupName" class="ui-hidden-accessible">Username:</label>
+                <input type="text" name="txtGroupName" id="txtGroupName" value="" placeholder="Group Name"
+                    data-theme="a">
+
+                <!-- <a href="#" id<="btnRefreshAdminGroup" data-inline="true" data-role="button" data-icon="action" data-iconpos="notext" onclick="getGroupsMgt();">refresh</a>
+            <a href="#" id="btnGetCks" data-inline="true" data-role="button" data-icon="clock" data-iconpos="notext" onclick="getAllDivCheckBoxes( 'divAdminGroupMembers' );">ckBoxes</a>
+            <a href="#" id="btnTest" data-inline="true" data-role="button" data-icon="refresh" data-iconpos="notext" onclick="testCode();">ckBoxes</a>
+            <a href="#" id="btnLbItem" data-inline="true" data-role="button" data-icon="refresh" data-iconpos="notext" onclick="showListBoxItems();">ListBoxItems</a>
+-->
+                <fieldset class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <button class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right ui-icon-check"
+                            data-inline="true"
+                            onclick="addNewGroup(); ">
+                            Add
+                        </button>
+                    </div>
+                    <div class="ui-block-b">
+                        <button style="background-color: darkred; color: yellow"
+                            class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right"
+                            data-inline="true"
+                            data-icon="delete"
+                            onclick="deleteGroup(); getGroupsMgt();">
+                            Del
+                        </button>
+                    </div>
+                </fieldset>
+
+                <!--                <button style="background-color: lightgray; color: darkred" class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right ui-icon-check" data-inline="true"
+            onclick="showDivCheckBoxes('divAdminGroupMembers');">
+            Show Members
+        </button>-->
+                <!--<br/>-->
+
+                <fieldset data-role="controlgroup">
+
+                    <input type="radio" name="radio-choice" id="radio-choice-1" value="ShowMembers"/>
+                    <label for="radio-choice-1">Members</label>
+
+                    <input type="radio" name="radio-choice" id="radio-choice-2" value="ShowAll" checked="checked"/>
+                    <label for="radio-choice-2">ALL</label>
+                </fieldset>
+
+                <div id="divAdminGroupMembers" class="multiselect">
+                    <label>
+                        <input type="checkbox" name="option[]" value="1" id="User 1"
+                            onclick="memberClicked('divAdminGroupMembers', $('User 1'));" />User 1</label>
+                    <label>
+                        <input type="checkbox" name="option[]" value="2" id="User 2"
+                            onclick="memberClicked('divAdminGroupMembers', $(this));" />User 2</label>
+                    <label>
+                        <input type="checkbox" name="option[]" value="3" id="User 3"
+                            onclick="memberClicked('divAdminGroupMembers', $(this));" />User 3</label>
+                </div>
+                <button class="ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right ui-icon-check"
+                    onclick="addMemberToGroupMGT();">
+                    Updt Members
+                </button>
+                <a href="#" data-rel="back"
+                    class="ui-btn ui-corner-all ui-shadow ui-btn-a ui-icon-delete ui-btn-icon-notext ui-btn-right">Close</a>
+            </div>
+        </form>
+    </div>
+
+    <!--<p>
+    <label id="hr1" style="width: 100%; background-color: black; height: 10px"></label>
+</p>-->
+
+    <div id="divSend" class="ui-grid-a">
+        <div class="ui-block-a">
+            <!--style="width: 50%; margin-left: 15px; margin-right: 15px" -->
+            <input class="ui-btn-inline" type="file" name="file" id="fileToUpload" multiple>
+        </div>
+        <div class="ui-block-b">
+            <button class="ui-btn-inline ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right ui-icon-check"
+                style="align-self: center; background-color: navy; color: yellow" onclick="SendFiles()">
+                Send
+            </button>
+        </div>
+    </div>
+    <div id="divSelectFiles" style="border: outset; background-color: lightgray">
+    </div>
+    <label id="hr3" style="width: 100%; background-color: ivory; height: 20px"></label>
+    <div id="divMyGroups" class="ui-grid-a" style="border: outset; background-color: lightgray; color: black">
+        <div class="ui-block-a">
+            <select name="lbMyGroups" id="lbMyGroups" data-native-menu="false">
+                <option>Groups</option>
+                <option value="1">Group 1</option>
+                <option value="2">Group 2</option>
+            </select>
+        </div>
+        <div class="ui-block-b">
+            <select name="lbMyGroupMembers" id="lbMyGroupMembers" multiple="multiple" data-native-menu="false">
+                <option>Recipients in Group</option>
+                <option id="Member1" value="1">Please select a group</option>
+            </select>
+        </div>
+        <br/>
+    </div>
+    <div id="divDownload" class="ui-grid-a" style="border: outset; background-color: whitesmoke">
+        <div data-role="collapsible" data-collapsed="true" id="idFilesRxList">
+            <h4>FILES:</h4>
+        </div>
+
+        <div class="ui-grid-b">
+            <div class="ui-block-a">
+                <button class=" ui-btn-inline center-button ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right ui-icon-check "
+                    data-inline="true"
+                    style="background-color: navy; color: yellow"
+                    onclick="downloadAll();">
+                    Download
+                </button>
+            </div>
+            <div class="ui-block-b">
+                <button class=" ui-btn-inline center-button ui-btn ui-corner-all ui-shadow ui-btn-b ui-btn-icon-right ui-icon-check"
+                    data-inline="true"
+                    style="background-color: red; color: yellow;"
+                    onclick="vaporizeAll()">
+                    Vaporize ALL
+                </button>
+                <img id="imgPuma" src="image/puma.gif" style="margin-left: 50px"/>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div id="divProgress">
+        <!--<label id="hr2" style="width: 100%; background-color: black; height: 10px"></label>-->
+        <div id="percent" style="width: 100%; background-color: maroon; color: white; border: medium; border-color: black">
+            Waiting...
+        </div>
+
+        <label id="lblTotProgress">Total Progress:</label>
+        <!--<br/>-->
+        <progress id="pb2" value="0" max="100" style="width: 100%"></progress>
+        <br/>
+        <label id="lblFileProgress">File Progress</label>
+        <br/>
+        <progress id="progressBar" value="0" max="100" style="width: 100%"></progress>
+    </div>
+
+    <div id="divTx">
+    </div>
+
+    <div id="footer">
+        <label style="background-color: darkblue; color: yellow; text-align: right; font-family: Arial, Helvetica, sans-serif">18.3.13.27</label>
+    </div>
+    <!-- /footer -->
+
+    <script>
+
+        var validNavigation = false;
+
+        $(document).ready(function () {
+            $("#imgPuma").hide();
+            $("#divSend").hide();
+            wireUpEvents();
+            hideAll();
+
+            getUrlVars();
+
+            detectOs("L");
+
+            global_isadmin = 0;
+            $('#btnGroupMgt').hide();
+            $('#btnUserMgt').hide();
+
+            const cb = new CheckBox();
+
+            $("input[type='radio']").bind("change", function (event, ui) {
+                var s = $(this).val();
+                gRadioButton = s;
+
+                var ii = 1;
+
+                var SelectedGroup = localStorage.getItem("global_SelectedGroup");
+
+                if (s == "ShowMembers") {
+                    //console.log( "00 Showing members only" );
+                    localStorage.setItem("ShowMembers", "1");
+                    showGroupMembersOnly("divAdminGroupMembers", "lbAdminGroup");
+                    cb.SelectLbItemON(SelectedGroup);
+                }
+                else {
+                    //console.log( "00 Showing ALL members" );
+                    localStorage.setItem("ShowMembers", "0");
+                    $("#divGroupMembers").empty();
+                    getGroupsMgt();
+                    PopulateDivAdminGroupMembers();
+                    //cb.SelectLbItemON( SelectedGroup );
+                }
+            });
+
+            $(document).on('change', '#lbMyGroups', function () {
+                setSelGroupVal(this);
+                getMyGroupMembers();
+            });
+
+            $(document).on('click', '#lbMyGroups', function () {
+                setSelGroupVal(this);
+                getMyGroupMembers();
+            });
+
+            $("#lbAdminGroup").on('change', function () {
+                //console.log( "lbAdminGroup on change" );
+                var LBAG_debug = 0;
+                var s = $(this).val();
+                localStorage.setItem("global_SelectedGroup", s);
+                //console.log( "global_SelectedGroup: ", localStorage.getItem( "global_SelectedGroup" ) );
+                var bUseRadioControl = 1;
+
+                if (bUseRadioControl == 1) {
+                    if (s == "ShowMembers") {
+                        if (LBAG_debug == 1) console.log("Showing members only");
+                        localStorage.setItem("ShowMembers", "1");
+                        showGroupMembersOnly("divAdminGroupMembers", "lbAdminGroup");
+                        cb.sortGiveNamesFilter();
+                    }
+                    else {
+                        if (LBAG_debug == 1) console.log("01 Showing ALL members");
+                        localStorage.setItem("ShowMembers", "0");
+                        $("#divGroupMembers").empty();
+                        //markAdminGroupMembers();
+                        PopulateDivAdminGroupMembers();
+                        cb.sortGiveNamesFilter();
+                    }
+                }
+            });
+
+            $("#btnResetPw").on('click', function () {
+                console.log(">>> Reset PW button clicked...");
+                resetPw();
+            });
+
+            $("#lbAdminGroup").on('click', function () {
+
+                var LBAG_debug = 0;
+                var s = $(this).val();
+                localStorage.setItem("global_SelectedGroup", s);
+                //console.log( "lbAdminGroup on click" , s );
+                //console.log( "global_SelectedGroup: ", localStorage.getItem( "global_SelectedGroup" ) );
+                var bUseRadioControl = 1;
+
+                if (bUseRadioControl == 1) {
+                    if (s == "ShowMembers") {
+                        if (LBAG_debug == 1) console.log("Showing members only");
+                        localStorage.setItem("ShowMembers", "1");
+                        showGroupMembersOnly("divAdminGroupMembers", "lbAdminGroup");
+                        cb.sortGiveNamesFilter();
+                    }
+                    else {
+                        if (LBAG_debug == 1) console.log("01 Showing ALL members");
+                        localStorage.setItem("ShowMembers", "0");
+                        $("#divGroupMembers").empty();
+                        //markAdminGroupMembers();
+                        PopulateDivAdminGroupMembers();
+                        cb.sortGiveNamesFilter();
+                    }
+                }
+            });
+
+            $(document).on('click', '#lbAdminUser', function () {
+                //alert( $( '#lbAdminUser' ).val() );
+                setUserBtns();
+                getMemberGroups();
+            });
+            $(document).on('select', '#lbAdminUser', function () {
+                setUserBtns();
+            });
+            $(document).on('change', '#lbAdminUser', function () {
+                setUserBtns();
+            });
+            if (sessionStorage.getItem('UID') != undefined)
+                gUserID = sessionStorage.getItem('UID');
+            if (sessionStorage.getItem('PW') != undefined)
+                gPwID = sessionStorage.getItem('PW');
+            if (sessionStorage.getItem('SID') != undefined)
+                gSessionID = sessionStorage.getItem('SID');
+
+            recallLogin();
+
+            localStorage.setItem("ShowMembers", "0");
+        });
+
+        function wireUpEvents() {
+            window.onbeforeunload = function () {
+                if (!validNavigation) {
+                    endSession();
+                }
+            }
+
+            // Attach the event keypress to exclude the F5 refresh
+            $(document).bind('keypress', function (e) {
+                if (e.keyCode == 116) {
+                    validNavigation = true;
+                }
+            });
+
+            // Attach the event click for all links in the page
+            $("a").bind("click", function () {
+                validNavigation = true;
+            });
+
+            // Attach the event submit for all forms in the page
+            $("form").bind("submit", function () {
+                validNavigation = true;
+            });
+
+            // Attach the event click for all inputs in the page
+            $("input[type=submit]").bind("click", function () {
+                validNavigation = true;
+            });
+
+            function endSession() {
+                // Browser or broswer tab is closed
+                // Do closing stuff here ...
+                console.log("bye, app closing");
+            }
+
+        }
+    </script>
+</body>
+</html>

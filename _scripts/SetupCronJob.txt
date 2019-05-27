@@ -1,0 +1,25 @@
+
+nano /var/www/html/SLupload/_scripts/removeoldfiles.sh
+
+#!/bin/bash
+echo '****' >> del.log
+date >> del.log
+find /var/www/html/SLupload/uploads -type f -ctime +2 -exec rm -rf {} +  >> del.log
+
+
+Log in to the server
+Switch to the user as which you want to run the program/script as
+Run the command crontab -e
+You now get an editor. At the end of the line, add:
+0 3 * * * /var/www/html/SLupload/_scripts/removeoldfiles.sh >/dev/null 2>&1
+
+Save the file
+This will run the command every day at 03:00. You can adjust the times accordingly. The >/dev/null 2>&1 will discard any output from the command.
+
+
+cd /var/www/html/SLupload/_scripts
+echo '----' del.log
+chown -R root:www-data *.*
+chmod +x removeoldfiles.sh
+removeoldfiles.sh
+chmod gu+w del.log

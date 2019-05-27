@@ -1,0 +1,43 @@
+﻿#The user would be added, without a home directory and be locked out of logging in. Instead of issuing the command without arguments, let's go with this:
+
+mysql -p
+
+ CREATE USER 'k3all'@'localhost' IDENTIFIED BY 'Copper@01';
+ GRANT ALL PRIVILEGES ON *.* TO 'k3all'@'localhost' WITH GRANT OPTION;
+ 
+
+sudo useradd -m webaccess
+sudo useradd -m phpuser
+sudo useradd -m wmiller
+sudo useradd -m dvfeldt
+passwd phpuser
+
+
+groupadd webaccess
+usermod -a -G webaccess phpuser
+usermod -a -G www-data phpuser
+
+usermod -a -G webaccess wmiller
+usermod -a -G webaccess root
+usermod -a -G webaccess dvfeldt
+
+usermod -a -G www-data wmiller
+usermod -a -G www-data root
+usermod -a -G www-data dvfeldt
+
+grep webaccess /etc/group
+
+mkdir php
+
+chown -R www-data:www-data /php
+chmod go-rwx /php
+go+x /php
+chgrp -R www-data /php
+chmod -R go-rwx /php
+chmod -R g+rx /php
+chmod -R g+rwx /var/www/html/SLupload
+chmod -R g+rwx /var/www/html/SLupload/uploads
+
+
+chown -R www-data:www-data /var/www/html/SLupload
+chmod +x /var/www/html/SLupload/php/*.php

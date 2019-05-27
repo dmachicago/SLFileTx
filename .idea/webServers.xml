@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="WebServers">
+    <option name="servers">
+      <webServer id="bbdd5264-f790-4006-a30a-82dc526c87f1" name="LAX" url="https://45.32.129.86/SLupload">
+        <fileTransfer host="45.32.129.86" port="22" rootFolder="/var/www/html/SLupload" accessType="SFTP">
+          <advancedOptions>
+            <advancedOptions dataProtectionLevel="Private"/>
+          </advancedOptions>
+          <option name="port" value="22"/>
+        </fileTransfer>
+      </webServer>
+    </option>
+  </component>
+</project>

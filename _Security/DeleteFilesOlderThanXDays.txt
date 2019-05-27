@@ -1,0 +1,4 @@
+﻿
+find /path/to/files* -mtime +3 -exec rm {} \;
+
+find /path/to/files* -mtime +1 -exec rm {} \;
